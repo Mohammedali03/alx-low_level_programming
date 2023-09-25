@@ -1,18 +1,20 @@
-char *_strchr(char *s, char c)
+#include "main.h"
+/**
+ * _memset - a function that fills memory with a constant byte.
+ * @s: starting address of memory to be filled
+ * @b: the desired value
+ * @n: number of bytes to be changed
+ *
+ * Return: changed array with new value for n bytes
+ */
+char *_memset(char *s, char b, unsigned int n)
 {
-        int a = 0;
+	int i = 0;
 
-        while (1)
-        {
-            
-            if (s[a] == c)
-            {
-                return (s + a);
-            }
-            if (s[a] == '\0')
-            {
-                return (NULL);
-            }
-            a++;
-        }
+	for (; n > 0; i++)
+	{
+		s[i] = b;
+		n--;
+	}
+	return (s);
 }
