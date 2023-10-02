@@ -1,77 +1,44 @@
-#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <stdbool.h>
-
-int make_change(int n)
-{
-	int coins, quarters, dimes, nickels, twocents, pennies;
-
-	coins = 0;
-	quarters = 0;
-	dimes = 0;
-	nickels = 0;
-	twocents = 0;
-	pennies = 0;
-
-	while (n > 0)
-	{
-		if (n >= 25)
-		{
-			n -= 25;
-			quarters += 1;
-		}
-		else if (n >= 10)
-		{
-			n -= 10;
-			dimes += 1;
-		}
-		else if (n >= 5)
-		{
-			n -= 5;
-			nickels += 1;
-		}
-		else if (n >= 2)
-		{
-			n -= 2;
-			twocents += 1;
-		}
-		else
-		{
-			n -= 1;
-			pennies += 1;
-		}
-	}
-	coins = quarters + dimes + nickels + twocents + pennies;
-
-	return (coins);
-}
+#include "main.h"
 
 /**
- * main - prints minimum number of coins to make change
+ * main - prints the minimum number of coins to
+ * make change for an amount of money
  * @argc: number of arguments
  * @argv: array of arguments
- * Return: (0)
+ *
+ * Return: 0 (Success), 1 (Error)
  */
-
 int main(int argc, char *argv[])
 {
-	int coins;
+	int num, j, result;
+	int coins[] = {25, 10, 5, 2, 1};
 
 	if (argc != 2)
 	{
 		printf("Error\n");
 		return (1);
 	}
-	else if (atoi(argv[1]) < 0)
+
+	num = atoi(argv[1]);
+	result = 0;
+
+	if (num < 0)
 	{
 		printf("0\n");
+		return (0);
 	}
-	else
+
+	for (j = 0; j < 5 && num >= 0; j++)
 	{
-		coins = make_change(atoi(argv[1]));
-		printf("%d\n", coins);
+		while (num >= coins[j])
+		{
+			result++;
+			num -= coins[j];
+		}
 	}
+
+	printf("%d\n", result);
 	return (0);
 }
