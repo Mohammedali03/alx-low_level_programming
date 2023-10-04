@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _strdup - copy a string to a newly allocated memory
+ * _strdup - copy a tring to a newly allocated memory
  * @str: the string
  * Return: null if it fails and a pointer to an array otherwise
  */
