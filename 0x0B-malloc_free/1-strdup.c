@@ -1,28 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "main.h"
-
 /**
- * _strdup - copy a tring to a newly allocated memory
- * @str: the string
- * Return: null if it fails and a pointer to an array otherwise
+ * _strdup - duplicate to the new memory space location
+ * @str: char
+ * Return: 0
  */
-
 char *_strdup(char *str)
 {
-	char *strArr;
-	int i = 0, size = 0;
+	char *aaa;
+	int i, r = 0;
 
 	if (str == NULL)
 		return (NULL);
-	while (str[size] != '\0')
-	{
-		size++;
-	}
-	size++;
+	i = 0;
+	while (str[i] != '\0')
+		i++;
 
-	strArr = malloc(size * sizeof(char));
+	aaa = malloc(sizeof(char) * (i + 1));
 
-	if (strArr == NULL)
+	if (aaa == NULL)
 		return (NULL);
 
-	while (i < size)
+	for (r = 0; str[r]; r++)
+		aaa[r] = str[r];
+
+	return (aaa);
 }
