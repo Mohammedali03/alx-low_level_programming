@@ -2,10 +2,10 @@
 
 /**
  * new_dog - creates a new dog.
- * @name: the name of the dog
- * @age: the age
- * @owner: the owner of the dog
- * Return: the dogs
+ * @name: The dogs name
+ * @age: The dogs age
+ * @owner: The owner
+ * Return: The dogs
  */
 
 dog_t *new_dog(char *name, float age, char *owner)
