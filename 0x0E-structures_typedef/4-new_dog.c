@@ -2,9 +2,9 @@
 
 /**
  * new_dog - creates a new dog.
- * @name: name of the dog
- * @age: age
- * @owner: owner of the dog
+ * @name: the name of the dog
+ * @age: the age
+ * @owner: the owner of the dog
  * Return: the dogs
  */
 
