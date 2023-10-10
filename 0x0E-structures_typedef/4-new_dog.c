@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * new_dog - creates a new dog.
- * @name: name of the dog
- * @age: age 
- * @owner: owner of the dog
+ * new_dog - create a new dog.
+ * @name: naming
+ * @age: age number
+ * @owner: ownership
  * Return: Always 0.
  */
 dog_t *new_dog(char *name, float age, char *owner)
@@ -44,4 +44,3 @@ for (k = 0; k <= j; k++)
 d->owner[k] = owner[k];
 return (d);
 }
-
