@@ -2,8 +2,8 @@
 
 /**
  * checkLen - checks the binary length of an integer
- * @n: an integer
- * Return: the length of an intger
+ * @n: the integer
+ * Return: the length of the intger
  */
 
 int checkLen(unsigned long int n)
@@ -20,7 +20,7 @@ int checkLen(unsigned long int n)
 
 /**
  * print_binary -  prints the binary representation of a number.
- * @n: a number
+ * @n: the number
  */
 
 
