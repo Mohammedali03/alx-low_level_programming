@@ -1,86 +1,48 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "main.h"
+#include <fcntl.h>
 
 #define BUFFER_SIZE 1024
 
 /**
- * check_error - prints error messages and exits with exit number
- *
- * @error: either the exit number or file descriptor
- * @fname: name of either file_in or file_out
- * @fd: file descriptor
- *
- * Return: 0 on success
+* main - Entry point of the program.
+* @argc: The number of command-line arguments.
+* @argv: An array of strings
+* Return: Return 0 on successful execution
 */
-
-int check_error(int error, char *fname, int fd)
-{
-	switch (error)
-	{
-		case 97:
-			dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-			exit(error);
-		case 98:
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", fname);
-			exit(error);
-		case 99:
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", fname);
-			exit(error);
-		case 100:
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-			exit(error);
-		default:
-			return (0);
-	}
-}
-
-
-
-/**
- * main - copies the content of the file to another file.
- * @argc: number of arguments
- * @argv: list of arguments
- * Return: always 0
- */
-
 int main(int argc, char *argv[])
 {
-	char buffer[BUFFER_SIZE];
-	int file_from, file_to;
-	int bytes_read = 0, bytes_written = 0;
-	int close_from, close_to;
+int file_from, file_to;
+ssize_t bytes_read, bytes_written;
+char buffer[BUFFER_SIZE];
 
-	if (argc != 3)
-		check_error(97, NULL, 0);
+if (argc != 3)
+{
+dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", argv[0]);
+return (97);
+}
+file_from = open(argv[1], O_RDONLY);
+file_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 
-	file_from = open(argv[1], O_RDONLY);
-	if (file_from == -1)
-		check_error(98, argv[1], 0);
-
-
-
-	file_to  = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (file_to == -1)
-		check_error(99, argv[2], 0);
-
-	while ((bytes_read = read(file_from, buffer, BUFFER_SIZE)) != 0)
-	{
-		if (bytes_read == -1)
-			check_error(99, argv[1], 0);
-
-		bytes_written = write(file_to, buffer, bytes_read);
-		if (bytes_written == -1)
-			check_error(99, argv[2], 0);
-
-	}
-
-	close_from = close(file_from);
-	if (close_from == -1)
-		check_error(100, argv[1], close_from);
-
-	close_to = close(file_to);
-	if (close_to == -1)
-		check_error(100, argv[2], close_to);
-	return (0);
+if (file_from == -1 || file_to == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't open files\n");
+return (98);
+}
+while ((bytes_read = read(file_from, buffer, BUFFER_SIZE)) > 0)
+{
+bytes_written = write(file_to, buffer, bytes_read);
+if (bytes_written == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't write to file %s\n", argv[2]);
+return (99);
+}
+}
+if (bytes_read == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+return (98);
+}
+close(file_from);
+close(file_to);
+return (0);
 }
